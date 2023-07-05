@@ -1,0 +1,130 @@
+body{
+    margin: 0;
+    background-color: #454545;
+}
+
+.container{
+    border: 0px solid white;
+    position: absolute;
+    background-color: transparent;
+    height: 100%;
+    width: 50%;
+    left: 30%;
+    top: 0;
+}
+
+
+.title-container{
+    height: auto;
+    width: 90%;
+    display: grid;
+    margin: 50px;
+    border: 0px solid white;
+    position: relative;
+}
+
+.title-leaderboard{
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.top-user{
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    color: white;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.filter{
+    text-align: center;
+    height: auto;
+    width: 240px;
+    position: absolute;
+    border: 0px solid white;
+    right: 0;
+    bottom: 0;
+}
+
+.filter button{
+    width: 120px;
+    position: relative;
+    float: left;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 8px;
+    background-color: #1d1d1d;
+    color: white;
+}
+
+.filter select{
+    font-size: 18px;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+#leaderboard{
+    width: 90%;
+    height: auto;
+    border: 0px solid white;
+    margin: 50px;
+    position: relative;
+    overflow: auto;
+}
+
+#lat-table,
+#add-table,
+#sub-table,
+#mul-table,
+#div-table,
+#mix-table{
+    display: none;
+}
+
+#game-type-selection{
+    display: none;
+}
+
+#leaderboard td{
+    text-align: center;
+    background-color: white;
+    height: 50px;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.columns tr{
+    height: 40px;
+    background-color: #101010;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    color: rgb(197, 197, 197);
+}
+
+.ranking{
+    width: 100px;
+}
+
+.username{
+    width: 300px;
+}
+
+.points{
+    width: 150px;
+}
+
+.rank{
+    width: 150px;
+}

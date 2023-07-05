@@ -1,0 +1,29 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/login.css">
+</head>
+
+<body>
+	<div id="login-form">
+		<h1>LOGIN</h1>
+		<form action = "" method = 'POST'>
+			<label>Email</label><br>
+			<input type="text" placeholder="Enter Username" id="username" name="username" value="{{
+				request.form.username }}"><br>
+			<label>Password</label><br>
+			<input type="password" placeholder="Enter Password" id="password" name="password" value="{{
+				request.form.password }}"><br>
+			<button id="login-submit">LOGIN</button>
+			<a href><h2>Forgot Password?<h2></a>
+		</form>
+		<hr><br>
+			<h3>Need an account?</h3>
+			<a href="{{ url_for('view.signup') }}"><button id="create-new-account">Create Account Now</button></a>	
+	</div>
+	{% if error %}
+	<p class="error"><strong>Error:</strong> {{ error }}
+	  {% endif %}
+</body>
+</html>

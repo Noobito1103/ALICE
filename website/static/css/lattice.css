@@ -1,0 +1,165 @@
+body{
+    position: grid;
+    place-items: center;
+    max-height: 800px;
+    max-width: 700px;
+}
+
+.lattice input{
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+#problem{
+    display: grid;
+    place-items: center;
+    height: auto;
+    width: auto;
+    position: absolute;
+    top: 0;
+    left: 15%;
+    transform: scale(0.65);
+}
+
+.lattice{
+    height: 500px;
+    width: 500px;
+}
+
+.square{
+    float: left;
+    height: 49%;
+    width: 49%;
+    position: relative;
+    border: 1px solid black;
+    background-color: white;
+}
+
+#input-1,
+#input-2,
+#input-3,
+#input-4,
+#input-5,
+#input-6,
+#input-7,
+#input-8
+{
+    border: 1px black solid;
+    font-size: 80px;
+    height: 40%;
+    width: 40%;
+    text-align: center;
+    background-color: transparent;
+    color: blue;
+}
+
+.answer{
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    font-size: 80px;
+    text-align: center;
+    border: 1px solid black;
+    color: red;
+}
+
+.random{
+    position: absolute;
+    border: 0px solid black;
+    height: auto;
+    width: auto;
+    font-size: 80px;
+    text-align: center;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+.random-num-1{
+    top: -20%;
+    left: 20%;
+}
+
+.random-num-2{
+    right: 20%;
+    top: -20%;
+}
+
+.random-num-3{
+    right: -15%;
+    top: 15%;
+}
+
+.random-num-4{
+    right: -15%;
+    bottom: 15%;
+}
+
+.answer-1{
+    left: -25%;
+    top: 27%;
+}
+
+.answer-2{
+    left: -25%;
+    bottom: 3%;
+}
+
+.answer-3{
+    left: 3%;
+    bottom: -23%;
+}
+
+.answer-4{
+    right: 27%;
+    bottom: -23%;
+}
+
+#input-1,
+#input-3,
+#input-5,
+#input-7
+{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#input-2,
+#input-4,
+#input-6,
+#input-8
+{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#line{
+    width: calc(245px * 1.41);
+    border-bottom: 3px solid black;
+    transform: rotate(-45deg);
+    transform-origin: bottom left;
+    position: absolute;
+    left: 0; 
+    bottom: 0;
+}
+
+#submit-btn{
+    height: 75px;
+    width: 200px;
+    font-size: 20px;
+    font-family: Roboto, Helvetica, sans-serif;
+    font-weight: bold;
+    position: absolute;
+    bottom: -50%; 
+    left: 30%;
+}
+
+#start-btn{
+    height: 75px;
+    width: 200px;
+    font-size: 20px;
+    font-family: Roboto, Helvetica, sans-serif;
+    font-weight: bold;
+    position: absolute;
+    bottom: -50%; 
+    left: -20%;
+}

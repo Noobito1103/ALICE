@@ -1,0 +1,387 @@
+body{
+    background-color: #454545;
+}
+
+a.link, a.hover, a:visited, a:active{
+    text-decoration: none;
+}
+
+h1{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 30px;
+}
+
+h3{
+    font-size: 14px;
+    margin: 0;
+    color: white;
+    padding-top: 15px;
+    padding-left: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h4{
+    font-size: 15px;
+    margin: 0;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+p{
+    font-size: 13px;
+    font-weight: bold;
+    color: grey;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 30px;
+    padding-top: 8px;
+    text-decoration: none;
+}
+
+.menu_bar {
+    border: 0px solid black;
+    height: 100%;
+    width: 200px;
+    position:fixed;
+    top:0;
+    left:0;
+    background-color: #383838;
+}
+
+.menu_container_1 {
+    height: auto;
+    width: auto;
+    border: 0px solid white;
+    position:absolute;
+    
+}
+
+.menu_container_2 {
+    height: auto;
+    width: auto;
+    border: 0px solid white;
+    position: absolute;
+    bottom: 20px;
+}
+
+.logo_container {
+    border: 0px solid black;
+    height: 75px;
+    width: 100%;
+    background-color: #383838;
+    display: inline-block;
+}
+
+.menu_container_upper{
+    border: 0px solid black;
+    height: 50px;
+    width: 100%;
+    display: inline-block;
+}
+
+.menu_container_lower{
+    border: 0px solid white;
+    height: 30px;
+    width: 200px;
+    position: relative;
+}
+
+.menu_container_upper:hover,.menu_container_lower:hover{
+    background-color: #1a1a1a;
+    cursor: pointer;
+}   
+
+.hidden_container,.socials_container{
+    border: 0px solid white;
+    position: absolute;
+    top: 0;
+    left: 200px;
+    height: 100%;
+    width: 300px;
+    background-color: #1a1a1a;
+    z-index: 1;
+    display: none;
+}
+
+.play_list, .socials_list{
+    border: 0px solid white;
+    background-color: #1a1a1a;
+    width: 100%;
+    height: 50px; 
+}
+
+.play_list:hover, .socials_list:hover{
+    background-color: #4f4f4f;
+    cursor: pointer;
+}
+
+.container{
+    border: 0px solid white;
+    position: absolute;
+    background-color: transparent;
+    height: 100%;
+    width: 86%;
+    left: 200px;
+    top: 0;
+}
+
+.profile_container{
+    border: 1px solid white;
+    position: absolute;
+    height: 10%;
+    width: 25%;
+    margin: 25px;
+}
+
+.arrow {
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: relative;
+    right: -100px;
+}
+
+#socials .arrow {
+    right: -75px;
+}
+
+.friends_container{
+    border: 1px solid white;
+    position: absolute; 
+    left: 25px;
+    top: 150px;
+    width: 70%;
+    height: 23%;
+}
+
+.profile_info{
+    border: 0px solid white;
+    float: left;
+    height: auto;
+    width: auto;
+    text-align: center;
+    margin-left: 20px;
+}
+
+.profile_info .circle{
+    border: 1px solid white;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    display: block;
+}
+
+.single_player_container{
+    border: 0px solid white;
+    height: auto;
+    width: auto;
+    position: absolute;
+    top: 375px;
+    left: 50px;
+    text-align: center;
+}
+
+.difficulty_container{
+    border: 1px solid white;
+    height: 35px;
+    width: 200px;
+    margin-top: 15px;
+    border-radius: 10px;
+    position: relative;
+    padding-top: 15px;
+}
+
+.difficulty_container:hover{
+    cursor: pointer;
+}
+
+.difficulty_container .difficulty{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    text-align: center;
+}
+
+.scores_container{
+    position: absolute;
+    border: 1px solid white;
+    height: 300px;
+    width: 500px;
+    top: 375px;
+    left: 25px;
+    text-align: center;
+}
+
+.leaderboard_container{
+    position: absolute;
+    border: 1px solid white;
+    height: 300px;
+    width: 300px;
+    top: 375px;
+    left: 650px;
+    text-align: center  ;
+}
+
+.help_container{
+    position: absolute;
+    border: 0px solid white;
+    width: auto;
+    height: auto;
+    bottom: 20px;
+    left: 200px;
+    background-color: #1a1a1a; 
+    display: none;
+}
+
+.help_list{
+    border: 0px solid white;
+    background-color: #1a1a1a;
+    width: 200px;
+    height: 30px; 
+    padding-top: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.help_content{
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: white;
+    padding-left: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.help_list:hover{
+    background-color: #4f4f4f;
+    cursor: pointer;
+}
+
+.bug_form ,.feedback_form{  
+    border: 0px solid white;
+    z-index: 1;
+    background-color: grey;
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    top: 140px;
+    left: 30%;
+    display: none;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.bug_form input, .feedback_form input {
+    height: 40px;
+    width: 350px;
+    max-width: 350px;
+    position: relative;
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+    border: 0;
+}
+
+.bug_form textarea, .feedback_form textarea {
+    height: 130px;
+    width: 350px;
+    max-width: 350px;
+    position: relative;
+    background-color: white;
+    border: 0;
+    padding: 10px
+}
+
+.attach_btn{
+    position: absolute;
+    width: 120px;
+    height: 50px;
+    border-radius: 5px;
+    border: 0;
+    bottom: 50px;
+    left: 25px;
+    cursor: pointer;
+}
+
+.send_btn{
+    position: absolute;
+    width: 75px;
+    height: 50px;
+    border-radius: 5px;
+    border: 0;
+    bottom: 50px;
+    right: 25px;
+    cursor: pointer;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+}
+
+.close:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.close:before, .close:after {
+    position: absolute;
+    left: 15px;
+    content: '';
+    height: 33px;
+    width: 2px;
+    background-color: white;
+}
+.close:before {
+    transform: rotate(45deg);
+}
+.close:after {
+    transform: rotate(-45deg);
+}
+
+.chatbox_container{
+    border: 0px solid white;
+    position: absolute;
+    width: 300px;
+    height: auto;
+    right: 20px;
+    bottom: 0;
+}
+
+.chatbox_content{
+    height: 360px;
+    width: 300px;
+    background-color: #606060;
+    display: none;
+}
+
+.chatbox_btn{
+    height: 40px;
+    width: 300px;
+    position: inline-block;
+    background-color: #303030;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.chatbox_btn:hover{
+    cursor: pointer;
+}
+
+
+  

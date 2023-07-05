@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel = "stylesheet" href = "/static/css/admin.css">
+</head>
+<body>
+    <div class = "users-table">
+        <span id  = "alert-msg" style = "display: none;">{{ message }}</span>
+        <h1>Admin Panel</h1>
+        <button onclick='userTable()'>Users</button>
+        <button onclick='feedbackTable()'>Feedbacks</button>
+        <a href = "{{url_for('view.logout')}}"><button id = "log-out-btn">Log Out</button></a>
+        <div class = "table">
+            <table id = "all-user">
+                <thead class = "columns">
+                    <tr>
+                        <th class ="user-id">User ID</th>
+                        <th class ="username">Username</th>
+                        <th class ="email">Email</th>
+                        <th class ="password">Password</th>
+                        <th class ="col-edit">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                        <tr>
+                            <td data-column = "user-id">{{ row._id }}</td>
+                            <td data-column = "username">{{ row.username }}</td>
+                            <td data-column = "email">{{ row.email }}</td>
+                            <td data-column = "password">{{ row.password }}</td>
+                            <td>
+                                <button type="button" class="edit" onclick = "editRow(this)">
+                                    <span class="glyphicon">&#x270f;</span>
+                                </button>
+
+                                <button type="button" class="save" onclick = "saveRow(this)">
+                                    <span class = 'fa'>&#xf0c7;</span>
+                                </button>
+
+                                <button type="button" class="delete" onclick = "deleteRow(this)">
+                                    <span class="glyphicon">&#10006;</span>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>  
+            </table>
+            <table id = "feedback">
+                <thead class = "columns">
+                    <tr>
+                        <th class ="username">Username</th>
+                        <th class ="subject">Subject</th>
+                        <th class ="description">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in feedback %}
+                    <tr>
+                        <td>{{ row.user.username }}</td>
+                        <td>{{ row.subject }}</td>
+                        <td class = feedback-desc>{{ row.description }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class = "tips-container">
+        Tips and Tricks:
+        <textarea type="text" name="content" id = "tips"></textarea>
+        <button type="submit" id = "save-btn" onclick="saveTips()">Save</button>
+    </div>
+    <div class = "user-log-container">
+        <span class = "user-activity-title">User Activity</span>
+        <div class = "logs">
+            {% for log in logs %}
+                <span class = "log-content">{{ log }}</span>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+{% if message %}
+    <script>
+        const msg = "{{ message }}";
+        alert(msg);
+        window.location.href = "{{ adminURL }}";
+    </script>
+{% endif %}
+<script>
+    function deleteRow(button){
+        var selection = confirm("Delete User?")
+        if (selection){
+            var row = button.parentNode.parentNode;
+            var cells = row.getElementsByTagName('td');
+            var userID = cells[0].textContent.trim();
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/delete-row", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            var data = JSON.stringify({
+                userID: userID
+            })
+
+            xhr.send(data);
+            
+            row.parentNode.removeChild(row);
+            alert('User Sucessfully Deleted')
+        }
+        location.reload();
+    }
+
+    function editRow(button){
+        button.style.display = 'none';
+        document.querySelector('.save').style.display = 'block';
+        var row = button.parentNode.parentNode;
+        var cells = row.getElementsByTagName('td');
+        for (var i = 1; i < cells.length-1; i++) {
+            var cellValue = cells[i].textContent.trim();
+            var inputField = document.createElement('input');
+            inputField.type = 'text';
+            inputField.value = cellValue;
+
+            cells[i].innerHTML = '';
+            cells[i].appendChild(inputField);
+        }
+    }
+
+    function saveRow(button){
+        var selection = confirm("Save Changes?")
+
+        if (selection){
+            button.style.display = 'none';
+            document.querySelector('.edit').style.display = 'block';
+            var row = button.parentNode.parentNode; 
+            var cells = row.getElementsByTagName('td');
+            var data = {};
+            data['user-id'] = (cells[0].textContent);
+            for (var i = 1; i < cells.length - 1; i++) {
+                var inputValue = cells[i].querySelector('input').value;
+                cells[i].innerHTML = inputValue;
+                var columnName = cells[i].getAttribute('data-column');
+                data[columnName] = inputValue;
+            };
+
+            fetch('/edit_user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+            })
+        }
+        location.reload();
+    }
+
+    function userTable(){
+        document.getElementById("all-user").style.display = "block";
+        document.getElementById("feedback").style.display = "none";
+    }
+
+    function feedbackTable(){
+        document.getElementById("all-user").style.display = "none";
+        document.getElementById("feedback").style.display = "block";
+    }
+
+    function saveTips(){
+        var data = document.getElementById('tips').value;
+        localStorage.setItem('tips-n-tricks', data);
+        alert("Successfully changed tips and tricks");
+        location.reload();
+    }
+
+    const container = document.getElementById('tips')
+    var tips = localStorage.getItem('tips-n-tricks');
+    container.innerHTML = tips;
+</script>
+</html>

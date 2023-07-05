@@ -1,0 +1,98 @@
+body {
+    background: lightblue;
+}
+
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    color: rgb(112, 112, 112);
+    margin: 35px;
+}
+
+h2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: rgb(153, 153, 153);
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 35px;
+}
+
+h3{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: rgb(153, 153, 153);
+    text-align: center;
+    margin-top: 10px;
+    
+}
+
+hr{
+    margin-right: -35px;
+}
+
+#login-form{
+    background-color: white;
+    position: relative;
+    border: 1px black solid;
+    width: 500px;
+    height: 600px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+}
+
+label{
+    color: rgb(112, 112, 112);
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+    padding-top: 20px;
+    padding-bottom: 6px;
+    margin-left: 35px;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
+#login-form input[type=text], [type=password] {
+    width: 430px;
+    margin-left: 35px;
+    font-size: 14pt;
+    border: 2px black solid;
+    outline: none;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+#login-form button {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 430px;
+    border: none;
+    color: white;
+    font-size: 14pt;
+    padding: 13px;
+    margin-top: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 35px;
+    opacity: 0.8;
+}
+
+#login-form button:hover {
+    opacity: 1;
+}
+
+#login-form #login-submit {
+    margin-top: 50px;
+    background: #1d8bbf;
+}
+
+#login-form p {
+    color: white;
+}
+
+#login-form #create-new-account {
+    background: #39b95b;
+}

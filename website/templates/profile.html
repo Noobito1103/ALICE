@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="/static/css/profile.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    .profile-container {
+        background-color: var(--banColor);
+    }
+
+    .username {
+        color: var(--userColor);
+    }
+
+    .bio {
+        color: var(--bioColor);
+    }
+
+    .game-statistics {
+        color: var(--gameColor);
+    }
+
+</style>
+{% endblock %}
+{% block content %}
+<body></body>
+<div class = "container">
+    <div class = "user-container">
+        <div class = "profile-container">
+            <button id = "edit-btn" onclick="enableEdit()"></button>
+            <button id = "save-btn" onclick="closeEdit()"></button>
+            <div class="avatar-upload">
+                <div class="avatar-preview">
+                    <div id="imagePreview">
+                        {% if image_url  %}
+                            <img id = "profile-avatar" src="data:image/jpeg;base64,{{ image_url }}" alt="Profile Picture">
+                        {% else %}
+                            <img id = "profile-avatar" src="/static/images/default.jpg" alt="Default Profile Picture">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <span class = "username">{{ user }}</span>
+            {% if bio %}
+                <div class = "bio">{{ bio }}</div>
+            {% else %}
+                <div class = "bio">Bio is Empty</div>
+            {% endif %}
+            <div class = "game-statistics">
+                <span class = "game-stat">Game Statistics</span>
+                <div class = "label-statistics">
+                    <li>Recent Score: <i>{{past_score}} pts</i></li>
+                    <li>Highest Score: <i>{{top_score}} pts</i></li>
+                    <li>Total Score: <i>{{total_score}} pts</i></li>
+                </div>
+            </div>
+        </div> 
+        <div id = "edit-container">
+            <span class = "title">Edit Profile</span>
+            <form id = "edit-form" method="POST" action="/upload" enctype="multipart/form-data">
+                <div class = "user-information">
+                    <label>Username:</label>
+                    <input id = "username" type="text" name = "username" placeholder = '{{ user }}'>
+                    <label>Bio:</label>
+                    {% if bio %}
+                        <textarea id = "edit-bio" type="text" name = "bio" maxlength="100">{{ bio }}</textarea>
+                    {% else %}
+                        <textarea id = "edit-bio" type="text" placeholder = 'Bio is Empty' name = "bio" maxlength="200"></textarea>
+                    {% endif %}
+                    <div class = "edit-avatar">
+                        <label for = 'imageUpload'>Change Avatar:</label>
+                        <div id = "selected-image"><img src = ""></div>
+                        <input type='file' name="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                    </div>
+                </div>
+                <div class = "banner-edit">
+                    <label for="bannerColor">Banner Color:</label>
+                    <input type="color" id="bannerColor" name="bannerColor" value = "{{ bannerColor }}">
+                    <label for="usernameColor">Username Font Color:</label>
+                    <input type="color" id="usernameColor" name="usernameColor" value = "{{ userColor }}">
+                    <label for="bioColor">Bio Font Color:</label>
+                    <input type="color" id="bioColor" name="bioColor" value = "{{ bioColor }}">
+                    <label for="gameColor">Game Statistics Font Color:</label>
+                    <input type="color" id="gameColor" name="gameColor" value = "{{ gameColor }}">
+                </div>
+                <button id = "save-edit" onclick="saveEdit()">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+function readURL(input) {
+if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById('selected-image').style.display = "block";
+        $('#selected-image img').attr('src', e.target.result);
+        $('#selected-image').hide();
+        $('#selected-image').fadeIn(650);
+    }
+    reader.readAsDataURL(input.files[0]);
+}};
+
+$("#imageUpload").change(function() {
+    readURL(this);
+});
+
+const form = document.querySelector('#edit-form')
+function saveEdit(){
+    form.submit();
+    location.reload();
+}
+
+const edit = document.getElementById('edit-btn');
+const save = document.getElementById('save-btn');
+const edit_con = document.getElementById('edit-container')
+
+function enableEdit(){
+    edit.style.display = "none";
+    edit_con.style.width = "65%"
+    save.style.display = "block";
+}
+
+function closeEdit(){
+    edit.style.display = "block";
+    edit_con.style.width = "0%"
+    save.style.display = "none";
+}
+
+var bannerColor = "{{ bannerColor|default('#FFFFFF') }}";
+document.documentElement.style.setProperty('--banColor', bannerColor);
+
+var usernameColor = "{{ userColor|default('#000000') }}";
+document.documentElement.style.setProperty('--userColor', usernameColor);
+
+var bioColor = "{{ bioColor|default('gray') }}";
+document.documentElement.style.setProperty('--bioColor', bioColor);
+
+var gameColor = "{{ gameColor|default('#000000') }}";
+document.documentElement.style.setProperty('--gameColor', gameColor);
+
+
+const debounce = (fn, delay = 200) => {
+    let timeoutId;
+    return (...args) => {
+        // cancel the previous timer
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        // setup a new timer
+        timeoutId = setTimeout(() => {
+            fn.apply(null, args)
+        }, delay);
+    };
+};
+
+form.addEventListener('input', debounce(function (e) {
+    switch (e.target.id) {
+        case 'username':
+            var text = document.getElementById('username').value;
+            document.querySelector('.username').textContent = text;
+            break
+        case 'bio':
+            var text = document.getElementById('edit-bio').value;
+            document.querySelector('.bio').textContent = text;
+            break
+        case 'bannerColor':
+            var color = document.getElementById('bannerColor').value;
+            document.querySelector('.profile-container').style.backgroundColor = color;
+            break;
+        case 'usernameColor':
+            var color = document.getElementById('usernameColor').value;
+            document.querySelector('.username').style.color = color;
+            break;
+        case 'bioColor':
+            var color = document.getElementById('bioColor').value;
+            document.querySelector('.bio').style.color = color;
+            break;
+        case 'gameColor':
+            var color = document.getElementById('gameColor').value;
+            document.querySelector('.game-statistics').style.color = color;
+            break;
+    }
+}));
+</script>   
+{% if message %}
+    <script>
+        const msg = "{{ message }}";
+        alert(msg);
+        window.location.href = "{{ profileURL }}";
+    </script>
+{% endif %}
+{% endblock %}

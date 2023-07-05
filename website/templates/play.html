@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Play{% endblock %}
+{% block style %}<link rel="stylesheet" href="/static/css/play.css">{% endblock %}
+{% block content %}
+<body>
+    <div class = "wrapper">
+        <div class = "game-settings-container">
+            <div id = "single-player-container">
+                <div id = "difficulty-container">
+                    <p>Select Game Mode:</p>
+                    <select id = "game-type-selection">
+                        <option class = "game-type" value = "lattice">Lattice</option>
+                        <option class = "game-type" value = "addition">Addition</option>
+                        <option class = "game-type" value = "subtraction">Subtraction</option>
+                        <option class = "game-type" value = "multiplication">Multiplication</option>
+                        <option class = "game-type" value = "division">Division</option>
+                        <option class = "game-type" value = "mixed">Mixed</option>
+                    </select>
+                    <p>Select Difficulty:</p>
+                    <li class = "game-mode" data-time = "0">Practice</li>
+                    <li class = "game-mode" data-time = "60005">Easy</li>
+                    <li class = "game-mode" data-time = "30005">Intermediate</li>
+                    <li class = "game-mode" data-time = "15005">Hard</li>
+                </div>
+                <button id = "start-btn">Start</button>
+            </div>
+        </div>
+        <div class = "game-container">
+            <div id = "timer"></div>
+            <div class = "countdown-screen"></div>
+            <div class = "iframe-container">
+                <iframe id = "game-iframe" src="" width="80%" height="100%" style = "border: 0px solid black"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const game_mode = document.querySelectorAll(".game-mode");
+
+    function selectGameMode(){
+        game_mode.forEach(game_mode => {
+            game_mode.classList.remove('selected');
+        });
+        this.classList.add('selected');
+    }
+
+    game_mode.forEach(game_mode => {
+        const time = game_mode.addEventListener('click', selectGameMode);
+    });
+
+    function countdownTimer(duration, display, iframe, gameType, difficulty){
+        var timer = duration;
+        var minutes, seconds;
+
+        var interval = setInterval(function () {
+            minutes = Math.floor((timer / 1000) / 60);
+            seconds = Math.floor((timer / 1000) % 60);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+            if (timer <= 0) {
+                clearInterval(interval);
+                display.textContent = "";
+                alert("Time's Up!");
+                window.parent.postMessage("Out of Time", '*');
+                location.reload();
+            }
+            timer -= 1000;
+        }, 1000);
+        if (gameType === "lattice"){
+            iframe.src = "/play/" + gameType + "/" + difficulty;
+        }
+
+        else if (gameType === "mixed" || gameType == "addition" || gameType == "subtraction" || gameType == "multiplication" || gameType == "division"){
+            iframe.src = "/play/operations/" + gameType + "/" + difficulty;
+        }
+    };
+
+    var countdownScreen = document.querySelector('.countdown-screen');
+
+    document.getElementById('start-btn').addEventListener('click', function() {
+        var selectedGameMode = document.querySelector('.game-mode.selected');
+        var selectedGameType = document.getElementById('game-type-selection').value;
+        var selectedDifficulty = document.querySelector('.game-mode.selected').textContent;
+        var time = selectedGameMode.dataset.time;
+        var iframe = document.getElementById('game-iframe');
+        if (selectedGameType == "lattice"){
+            if (selectedGameMode) {
+                document.getElementById('difficulty-container').style.pointerEvents = "none";
+                this.style.pointerEvents = "none";
+                this.style.opacity = "0.3";
+                countdownScreen.classList.add('start-animation');
+                countdownScreen.addEventListener('animationend', function() {
+                    countdownScreen.style.opacity = '0';
+                    setTimeout(function() {
+                        countdownScreen.style.display = 'none';
+                    }, 1000);
+                    if (time != 0){
+                        countdownTimer(time, document.getElementById('timer'), iframe, selectedGameType,selectedDifficulty);
+                    } 
+                    else{
+                        iframe.src = "/play/lattice/" + "Practice";
+                    }
+                })}
+            else{
+                alert("Please Select a Game Difficulty");
+            }
+        }
+
+        else {
+            if (selectedGameMode) {
+                document.getElementById('difficulty-container').style.pointerEvents = "none";
+                this.style.pointerEvents = "none";
+                this.style.opacity = "0.3";
+                countdownScreen.classList.add('start-animation');
+                countdownScreen.addEventListener('animationend', function() {
+                    countdownScreen.style.opacity = '0';
+                    setTimeout(function() {
+                        countdownScreen.style.display = 'none';
+                    }, 1000);
+                    var iframe = document.getElementById('game-iframe');
+                    if (time != 0){
+                        countdownTimer(60005, document.getElementById('timer'), iframe, selectedGameType, selectedDifficulty);
+                    }
+                    else{
+                        iframe.src = "/play/operations/" + selectedGameType + "/Practice";
+                    }
+            })}
+            else{
+                alert("Please Select a Game Difficulty");
+            }};
+    });
+
+    window.addEventListener('message', function(event) {
+      if (event.data === 'You win') {
+        location.reload();
+      }
+    });
+
+</script>
+{% endblock %}

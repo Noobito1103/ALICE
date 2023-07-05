@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Tutorial{% endblock %}
+{% block style %}<link rel="stylesheet" href="/static/css/tutorial.css">{% endblock %}
+{% block content %}
+<body>
+    <span class="title">How to Play</span>
+    <div class = "tutorial-container">
+        <div class="slider">
+            <div class="slider-content slide-1">
+                <img src = "/static/images/tutorial-1.png">
+                <span class = "content">This is called the Lattice Method. It is used to solve multiplication questions. What we have to do, is we need to multiply the numbers grid by grid</span>
+            </div>
+            <div class="slider-content slide-2">
+                <img src = "/static/images/tutorial-2.png">
+                <span class = "content">Step 1: <br> Lattice is simple! <br> Let's do it together. In the first grid, <br>5 x 9 = 45 <br> So we add in 4 and 5 in the box like so.</span>
+            </div>
+            <div class="slider-content slide-3">
+                <img src = "/static/images/tutorial-3.png">
+                <span class = "content">Step 2: <br> The next grid, <br> 6 x  9 = 54. <br> So we add 5 and 4 into the boxes.</span>
+            </div>
+            <div class="slider-content slide-4">
+                <img src = "/static/images/tutorial-4.png">
+                <span class = "content">Step 3: <br>Same steps as step 2 and step 3 <br> Fill in the remaining boxes.</span>
+            </div>
+            <div class="slider-content slide-5">
+                <img src = "/static/images/tutorial-5.png">
+                <span class = "content">
+                    Step 4: <br>
+                    Add the numbers diagonally from the bottom right to the top left. <br>
+                    8 = 8 <br>
+                    4 + 4 + 0 = 8 <br>
+                    5 + 5 + 4 = 14 <br>
+                    If the number exceeds 9, carry the 1 forward to the next diagonal <br>
+                    Finally 4 + 1 (carried forward) = 5. <br>
+                    Finally 56 x 98 = 5488.
+                </span>
+            </div>
+            
+        </div>
+        <div class="slider-nav">
+            <button class="prev-btn">Prev</button>
+            <button class="next-btn">Next</button>
+        </div>
+    </div>
+</body>
+<script>
+    const slider = document.querySelector('.tutorial-container');
+    const sliderContent = slider.querySelectorAll('.slider-content');
+    const prevBtn = slider.querySelector('.prev-btn');
+    const nextBtn = slider.querySelector('.next-btn');
+
+    let currentSlide = 0;
+
+    function showSlide(slideIndex) {
+    if (slideIndex < 0 || slideIndex >= sliderContent.length) {
+        return;
+    }
+    sliderContent.forEach((slide) => {
+        slide.style.transform = `translateX(-${slideIndex * 800}px)`;
+    });
+    currentSlide = slideIndex;
+    }
+
+    showSlide(currentSlide);
+
+    prevBtn.addEventListener('click', () => {
+        showSlide(currentSlide - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        showSlide(currentSlide + 1);
+    });
+</script>
+{% endblock %}

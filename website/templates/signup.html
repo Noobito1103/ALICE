@@ -1,0 +1,221 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<link rel="stylesheet" href="/static/css/signup.css">
+	
+	<title>Sign Up</title>
+</head>
+
+<body>
+	<div id = "wrapper">
+		<h1>ALICE</h1>
+		<div id="login-container">
+			<h2>SIGN UP</h2>
+			<div id = "login-form">
+				<form action = "" id = "form" method = 'POST' autocomplete="off">
+					<div class = "username-input">
+						<label id = "username-label">Your Desired Username</label>
+						<input type="text" id="username" name = "username" autocomplete="off" value="{{
+							request.form.username }}" required>
+						<span id = "error_message"></span>
+					</div>
+                    <div class = "email-input">
+						<label id = "email-label">Your Email</label>
+						<input type="email" id="email" name = "email" autocomplete="off" value="{{
+							request.form.email }}" required>
+						<span id = "error_message"></span>
+					</div>
+					<div class = "password-input">
+						<label id = "password-label">Password</label>
+						<input type="password" id="password" name = "password" autocomplete="off" value="{{
+							request.form.password }}" required>
+						<span id = "error_message"></span>
+					</div>
+					<button id = "signup-btn" type = "submit">SIGN UP</button>
+					<p>By signing up, you are accepting our <a href>Terms & Conditions</a></p><hr>
+					<button id = "back-to-login-btn"><a href = "{{url_for('view.login')}}">LOG IN</a></button>
+				</form>
+			</div>
+		</div>
+	</div>
+	{% if error %}
+	<p class="error"><strong>Error:</strong> {{ error }}
+	  {% endif %}
+</body>
+
+<script>
+document.querySelectorAll('#form input').forEach(input => {
+	const label = input.previousElementSibling;
+	const required = input.nextElementSibling;
+	const btn = document.getElementById('signup-btn');
+	input.addEventListener('focus', function(){
+		label.style.cssText = "transform: translate3d(0px, -32px, 0px) scale(0.75); background-color: white; z-index: 3; padding: 5px;";
+	})
+
+	input.addEventListener('focusout', function(){
+		if(!this.value){
+			label.style.cssText = "transform: '';backgroundColor: '';zIndex: '';padding: ''";
+		}
+		else{
+			label.style.color = "#8B8B8B";
+		}
+	})
+});
+
+const username_El = document.querySelector('#username');
+const email_El = document.querySelector('#email');
+const password_El = document.querySelector('#password');
+const signup_form = document.querySelector('#form');
+
+function checkBlank(value) {
+  	return value !== '';
+}
+
+function checkLength(length, min, max) {
+  	return length >= min && length <= max;
+};
+
+function checkEmail(email) {
+	const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);	
+};
+
+function checkPassword(password) {
+    const re = new RegExp("(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    return re.test(password);
+};
+
+function validateUsername(){
+	let valid = false;
+	const min  = 3, max = 20;
+	const username = username_El.value.trim();
+
+	if (!checkBlank(username)){
+		displayError(username_El, "Cannot be blank");
+	}
+	else if (!checkLength(username.length, min, max)){
+		displayError(username_El, "Username must be within 3 - 20 characters");
+	}
+	else{
+		displaySuccess(username_El)
+		valid = true
+	}
+	return valid
+}
+
+function validatePassword(){
+	let valid = false;
+	const password = password_El.value.trim();
+
+	if (!checkBlank(password)){
+		displayError(password_El, "Cannot be blank");
+	}
+	else if (!checkPassword(password)){
+		displayError(password_El, "Password must contain at least 8 characters, 1 number and 1 special character")
+	}
+	else{
+		displaySuccess(password_El)
+		valid = true;
+	}
+	return valid
+}
+
+function validateEmail(){
+	let valid = false; 
+	const email = email_El.value.trim();
+
+	if (!checkBlank(email)){
+		displayError(email_El, "Cannot be blank");
+	}
+	else if (!checkEmail(email)){
+		displayError(email_El, "Email format is incorrect");
+	}
+	else{
+		displaySuccess(email_El)
+		valid = true;
+	}
+	return valid
+}
+
+function displayError(element, message){
+	const inputField = element.parentElement;
+
+	inputField.classList.remove('success');
+	inputField.classList.add('error');
+
+	const error = inputField.querySelector('#error_message');
+	error.textContent = message;
+}
+
+function displaySuccess(element){
+	const inputField = element.parentElement;
+
+	inputField.classList.remove('error');
+	inputField.classList.add('success');
+
+	const error = inputField.querySelector('#error_message');
+	error.textContent = '';
+}
+
+signup_form.addEventListener('submit', function (e){
+	let vUsername = validateUsername(), 
+		vEmail = validateEmail(),
+		vPassword = validatePassword();
+
+	let validateForm = vUsername && vEmail && vPassword;
+		
+	if (!validateForm){
+		e.preventDefault();
+	}
+	
+	// else{
+	// 	submit();
+	// }
+});
+
+const debounce = (fn, delay = 200) => {
+    let timeoutId;
+    return (...args) => {
+        // cancel the previous timer
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        // setup a new timer
+        timeoutId = setTimeout(() => {
+            fn.apply(null, args)
+        }, delay);
+    };
+};
+
+signup_form.addEventListener('input', debounce(function (e) {
+    switch (e.target.id) {
+        case 'username':
+            validateUsername();
+            break;
+        case 'email':
+            validateEmail();
+            break;
+        case 'password':
+            validatePassword();
+            break;
+    }
+}));
+
+	// function submit(){
+	// 	var formData = new FormData(signup_form);
+	// 	var urlEncodedData = new URLSearchParams(formData).toString();
+
+	// 	var xhr = new XMLHttpRequest();
+	// 	xhr.open('POST', '/signup', true);
+	// 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	// 	xhr.send(urlEncodedData);
+	// }
+</script>
+{% if message %}
+	<script>
+		const message = "{{ message }}";
+		alert(message);
+	</script>
+{% endif %}
+</html>

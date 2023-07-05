@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Math Game</title>
+</head>
+<body>
+    <div class = "wrapper" style = "display: grid; place-items: center;">
+        <div id="problem" style="font-size: 40px;margin-top: 30px;" data-difficulty = "{{ difficulty }}" data-type = "{{ type }}"></div>
+        <input type="number" step="any" id="guess" style = "height: 20px; font-size: 20px; padding: 10px; width: 150px;" required>
+        <button onclick="submitAnswer()" style = "height: 30px; width: 150px; margin-top: 30px;">Submit</button>
+        <p id="score" style = "font-size: 20px">Score: 0</p>
+    </div>
+    <script>
+        let answer;
+        let score = 0;
+        const game_type = document.getElementById('problem').dataset.type;
+        const difficulty = document.getElementById('problem').dataset.difficulty;
+
+        if (difficulty == "Practice"){
+            document.getElementById('score').style.display = "none";
+        };
+        window.addEventListener('load', generateProblem());
+        
+        function generateOperator(){
+            switch (game_type) {
+                case 'addition':
+                    operators = '+'
+                    break;
+                case 'subtraction':
+                    operators = '-'
+                    break;
+                case 'multiplication':
+                    operators = "x"
+                    break;
+                case 'division':
+                    operators = "÷"
+                    break;
+                default:
+                    operators = ['+', '-', 'x', '÷'];
+                    break;
+            };
+            return operators[Math.floor(Math.random() * operators.length)];
+        }  
+
+        function randomNum(difficulty){
+            let num1, num2;
+            if (difficulty === "Easy"){
+                num1 = Math.floor(Math.random() * 9);
+                num2 = Math.floor(Math.random() * 9);
+            }
+            else if (difficulty === "Intermediate"){
+                num1 = Math.floor(Math.random() * 89) + 10;
+                num2 = Math.floor(Math.random() * 9) + 1;
+            }
+            else if (difficulty === "Hard"){
+                num1 = Math.floor(Math.random() * 89) + 10;
+                num2 = Math.floor(Math.random() * 89) + 10;
+            }
+
+            else if (difficulty === "Practice"){
+                num1 = Math.floor(Math.random() * 99);
+                num2 = Math.floor(Math.random() * 99)
+            };
+            return [num1, num2];
+        }
+
+        function generateProblem(){
+            const operation = generateOperator();
+            let numbers = randomNum(difficulty);
+            let num1 = numbers[0];
+            let num2 = numbers[1];
+
+            if (operation === "÷"){
+                while (num1 % num2 !== 0) {
+                    numbers = randomNum(difficulty);
+                    num1 = numbers[0];
+                    num2 = numbers[1];
+            }};
+
+            const problem = num1 + " " + operation + " " + num2;
+            answer = calculateAnswer(num1, num2, operation);
+            document.getElementById('problem').textContent = problem;
+            startTimer();
+        }
+
+        function startTimer(){
+            if (difficulty != "Practice"){
+                var seconds = 62;
+                var countdown = setInterval(function() {
+                    seconds--;
+
+                    if (seconds === 0) {
+                        addScoreToDatabase(score, game_type);
+                        alert("You Scored: "+ score + " points");
+                        location.reload();
+                    }
+                }, 1000);
+            }
+        }
+
+        function calculateAnswer(num1, num2, operator) {
+            switch (operator) {
+                case '+':
+                    return num1 + num2;
+                case '-':
+                    return num1 - num2;
+                case 'x':
+                    return num1 * num2;
+                case '÷':
+                    return num1 / num2;
+                default:
+                    return NaN;
+            }
+        }
+
+        function submitAnswer() {
+            const guess = parseFloat(document.getElementById('guess').value);
+
+            if (guess === answer) {
+                if(difficulty != "Practice"){
+                    switch(difficulty){
+                        case "Easy":
+                            score += 1;
+                            break;
+                        case "Intermediate":
+                            score += 2;
+                            break;
+                        case "Hard":
+                            score += 4;
+                            break;
+                    }
+                    document.getElementById('guess').value = "";
+                    document.getElementById('score').textContent = "Score: " + score;
+                    generateProblem();
+                }
+                else{
+                    document.getElementById('guess').value = "";
+                    generateProblem();
+                }
+            } 
+            else {
+                alert('Incorrect');
+            }
+        }
+
+        window.addEventListener('message', function(event) {
+            if (event.data === "Out of Time") {
+                alert("You Scored: " + score + " points");
+            }
+        });
+
+        function addScoreToDatabase(score, type) {
+            let scoreType;
+            switch (type) {
+                case 'addition':
+                    scoreType = 'addition';
+                    break;
+                case 'subtraction':
+                    scoreType = 'subtraction';
+                    break;
+                case 'multiplication':
+                    scoreType = 'multiplication';
+                    break;
+                case 'division':
+                    scoreType = 'division';
+                    break;
+                default:
+                    scoreType = 'mixed';
+                    break;
+            };
+            const requestBody = {
+                [scoreType]: score,
+            };
+
+            fetch('/add_opscore', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            })
+                .then(response => response.json())
+                .then(data => {
+                console.log(data);
+                })
+                .catch(error => {
+                console.error('Error:', error);
+                });
+            }
+    </script>
+</body>
+</html>

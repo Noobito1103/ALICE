@@ -1,0 +1,123 @@
+<html>
+<head>
+    <link rel = "stylesheet" href = "/static/css/menu.css">
+</head>
+<body>
+<div id = "container">
+    <div id = "navbar">
+        <div id = "logo-container">
+            ALICE
+        </div>
+        <div id = "navbar-upper-container">
+            <li id = 'play'>Play<i class = "arrow"></i></li>
+            <li>Tutorial</li>
+            <li>Leaderboards</li>
+            <!-- <li>Social</li> -->
+            <li>Profile</li>
+        </div>
+
+        <div id = "navbar-lower-container">
+            <li>Settings</li>
+            <li id = "help">Help</li>
+            <a href ="{{url_for('view.logout')}}"><li>Logout</li></a>
+        </div>
+    </div>
+
+    <div id = "play-container">
+        <a href ="{{url_for('view.play')}}"><li>New Game</li></a>
+        <li>Single Player</li>
+        <li>Multiplayer</li>
+    </div>
+
+    <div id = "help-container">
+        <li onclick = "openBugForm()">Report a Bug</li>
+        <li onclick = "openFeedbackForm()">Provide a Feedback</li>
+        <li>Ask a Question</li>
+    </div>
+
+    <div class = "bug_form" id = "bug_form">
+        <span class = "close" onclick = "closeBugForm()"></span>
+        <form action = "" method = "POST" id = "form">
+            <span id = form-title>Report a Bug</span>
+            <input type = "email" placeholder = "Email Address">
+            <textarea placeholder =  "Description"></textarea>
+            <button type = "submit" class = "send_btn">Submit</button>
+        </form>
+    </div>
+
+    <div class = "feedback_form" id = "feedback_form">
+        <span class = "close" onclick = "closeFeedbackForm()"></span>
+        <form action = "" method = "POST" id = "form">
+            <span id = form-title>Provide a Feedback</span>
+            <input type = "email" placeholder = "Email Address">
+            <textarea placeholder =  "Description"></textarea>
+            <button type = "submit" class = "send_btn">Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    const play = document.getElementById('play');
+    const play_container = document.getElementById('play-container');
+    const help = document.getElementById('help');
+    const help_container = document.getElementById('help-container');
+
+    play.addEventListener('mouseover', function handleMouseOverEvent() {
+        play_container.style.display = 'block';
+    });
+
+    play.addEventListener('mouseout', function handleMouseOutEvent() {
+        play_container.style.display = 'none';
+    });
+
+    play_container.addEventListener('mouseover', function handleMouseOverEvent() {
+        this.style.display = 'block';
+    });
+
+    play_container.addEventListener('mouseout', function handleMouseOutEvent() {
+        this.style.display = 'none';
+    });
+
+    help.addEventListener('mouseover', function handleMouseOutEvent() {
+        help_container.style.display = 'block';
+    });
+
+    help.addEventListener('mouseout', function handleMouseOutEvent() {
+        help_container.style.display = 'none';
+    });
+
+    help_container.addEventListener('mouseover', function handleMouseOutEvent() {
+        help_container.style.display = 'block';
+    });
+
+    help_container.addEventListener('mouseout', function handleMouseOutEvent() {
+        help_container.style.display = 'none';
+    });
+
+    function openBugForm(){
+        document.getElementById('bug_form').style.visibility = "visible";
+        document.getElementById('feedback_form').style.visibility = "hidden";
+    }
+
+    function openFeedbackForm(){
+        document.getElementById('feedback_form').style.visibility = "visible";
+        document.getElementById('bug_form').style.visibility = "hidden";
+    }
+
+    function closeBugForm(){
+        document.getElementById('bug_form').style.visibility = "hidden";
+    }
+
+    function closeFeedbackForm(){
+        document.getElementById('feedback_form').style.visibility = "hidden";
+    }
+
+    function showHelpContainer(){
+        document.getElementById('help-container').style.visibility = "visible";
+    }
+
+    function closeHelpContainer(){
+        document.getElementById('help-container').style.visibility = "hidden";
+    }
+</script>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Lattice Multiplication Game</title>
+    <link rel="stylesheet" href="/static/css/lattice.css">
+  </head>
+  <body>
+    <div id="problem">
+        <p id = "timer" data-difficulty="{{ difficulty }}" style = "display: none;"></p>
+        <form action = "" method = 'GET'>
+            <div class = "lattice" id = "lattice">
+                <input class = "answer answer-1" type="text" maxlength="1">
+                <input class = "answer answer-2" type="text" maxlength="1">
+                <input class = "answer answer-3" type="text" maxlength="1">
+                <input class = "answer answer-4" type="text" maxlength="1">
+                <div class = "random random-num-1" id = "ran-1"></div>
+                <div class = "random random-num-2" id = "ran-2"></div>
+                <div class = "random random-num-3" id = "ran-3"></div>
+                <div class = "random random-num-4" id = "ran-4"></div>
+                    <div class = "square square1">
+                        <input id = "input-1" type="text" maxlength="1">
+                        <div id = "line"></div>
+                        <input id = "input-2" type="text" maxlength="1">
+                    </div>
+                    <div class = "square square2">
+                        <input id = "input-3" type="text" maxlength="1">
+                        <div id = "line"></div>
+                        <input id = "input-4" type="text" maxlength="1">
+                    </div>
+                    <div class = "square square3">
+                        <input id = "input-5" type="text" maxlength="1">
+                        <div id = "line"></div>
+                        <input id = "input-6" type="text" maxlength="1">
+                    </div>
+                    <div class = "square square4">
+                        <input id = "input-7" type="text" maxlength="1">
+                        <div id = "line"></div>
+                        <input id = "input-8" type="text" maxlength="1">
+                    </div>
+                    <button type ="submit" id ="submit-btn">Submit Answer</button>
+            </div>
+        </form>
+    </div>
+  </body>
+<script>
+
+const timerElement = document.getElementById('timer');
+const difficulty = timerElement.dataset.difficulty;
+let time;
+let score;
+let remainingTime;
+let timer;
+
+if (difficulty == "Easy"){
+    time = 60005;
+}
+else if (difficulty == "Intermediate"){
+    time = 30005;
+}
+else if  (difficulty == "Hard"){
+    time = 15005;
+}
+else if  (difficulty == "Practice"){
+    time = 0;
+}
+
+window.addEventListener('load', startTimer(time));
+function startTimer(time){
+    if (time != 0){
+        remainingTime = time;
+        timer = setInterval(updateTime, 1000);
+    }
+};
+
+function updateTime(){
+    remainingTime -= 1000;
+    if (remainingTime <= 0){
+        remainingTime = 0
+        clearInterval(timer);
+    }
+    getScore();
+}
+
+function getScore(){
+    if (time === 60005){
+        score = Math.floor((remainingTime / time) * 100);
+    }
+    else if (time === 30005){
+        score = Math.floor(2 * (remainingTime / time) * 200);
+    }
+    else if (time === 15005){   
+        score = Math.floor(4 * (remainingTime / time) * 400);
+    }
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateProblem(){
+    const num1 = getRandomInt(1,9).toString();
+    const num2 = getRandomInt(0,9).toString();
+    const num3 = getRandomInt(1,9).toString();
+    const num4 = getRandomInt(0,9).toString();
+    const ans = parseInt(num1 + num2) * parseInt(num3 + num4);
+
+    return{
+        num1: num1,
+        num2: num2,
+        num3: num3,
+        num4: num4,
+        answer: ans
+    };
+};
+
+function renderProblem(problem){
+    const div1 = document.getElementById('ran-1');
+    const div2 = document.getElementById('ran-2');
+    const div3 = document.getElementById('ran-3');
+    const div4 = document.getElementById('ran-4');
+
+    div1.innerHTML = `${problem.num1}`;
+    div2.innerHTML = `${problem.num2}`;
+    div3.innerHTML = `${problem.num3}`;
+    div4.innerHTML = `${problem.num4}`;
+}
+
+const problem = generateProblem();
+renderProblem(problem);
+
+var inputs = document.querySelectorAll("input");
+
+inputs.forEach(function(input) {
+    input.addEventListener("input", function() {
+        this.value = this.value.replace(/[^0-9]/g, '').slice(0,1);
+    });
+});
+
+function resetInput(){
+    var inputs = document.querySelectorAll("input");
+    for(var i = 0; i < inputs.length; i++){
+        inputs[i].value = "";
+    };
+}
+
+const form = document.querySelector('form');
+const submit = document.getElementById('submit-btn');
+
+submit.addEventListener('click', function(event){
+    event.preventDefault();
+
+    var inputs = form.getElementsByTagName('input')
+    var isEmpty = false;
+    for (var i = 0; i < inputs.length; i++){
+        var input = inputs[i];
+
+        if (input.value === ''){
+            isEmpty = true;
+            break;
+        }
+    }
+    if (isEmpty){
+        alert("All fields must be filled");
+    }
+    else{
+        const ans1 = document.querySelector('.answer-1').value;
+        const ans2 = document.querySelector('.answer-2').value;
+        const ans3 = document.querySelector('.answer-3').value;
+        const ans4 = document.querySelector('.answer-4').value;
+        const answer = parseInt(ans1 + ans2 + ans3 + ans4);
+
+        if (ans1 === 0){
+            answer = parseInt(ans2 + ans3 + ans4);
+        }
+
+        if (answer === problem.answer){
+            if (time == 0){
+                alert("Correct!");
+                location.reload();
+            }
+            else{
+                alert("You got " + score +" points");
+                addScoreToDatabase(score);
+                window.parent.postMessage('You win', '*');
+            }
+        }
+
+        else{
+            alert("Incorrect answer. Try again");
+            resetInput();
+        }
+    }
+});
+
+function addScoreToDatabase(score) {
+  fetch('/add_latscore', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ score: score }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+</script>
+</html>

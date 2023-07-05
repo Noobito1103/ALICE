@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}Play{% endblock %}
+{% block style %}<link rel="stylesheet" href="/static/css/leaderboards.css">{% endblock %}
+{% block content %}
+<body>
+    <div class = "container">
+        <div class ="title-container">
+            <span class = "title-leaderboard">Leaderboard</span>
+            <span class = "top-user">Top 10 Players</span>
+            <div class = "filter">
+                <select id = "game-type-selection">
+                    <option class = "game-type" value = "lattice">Lattice</option>
+                    <option class = "game-type" value = "addition">Addition</option>
+                    <option class = "game-type" value = "subtraction">Subtraction</option>
+                    <option class = "game-type" value = "multiplication">Multiplication</option>
+                    <option class = "game-type" value = "division">Division</option>
+                    <option class = "game-type" value = "mixed">Mixed</option>
+                </select>
+                <button class = "btn1" onclick = "topScore()">Top Score</button>
+                <button class = "btn2" onclick = "totalScore()">Total Score</button>
+            </div>
+        </div>
+        <div id = "leaderboard">
+            <table>
+                <thead class = "columns">
+                    <tr>
+                        <th class ="ranking">Ranking</th>
+                        <th class ="username">Username</th>
+                        <th class ="points">Points</th>
+                        <th class ="rank">Rank</th>
+                    </tr>
+                </thead>
+                <tbody id = "total-table">
+                    {% for row in totalScore %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row.user.username }}</td>
+                            <td>{{ row.totalScore }}</td>
+                            <td>{{ row.rank }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tbody id = "lat-table">
+                    {% for row in latScore %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row.user.username }}</td>
+                            <td>{{ row.latScore }}</td>
+                            <td>{{ row.rank }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>  
+                <tbody id = "add-table">
+                    {% for row in addScore %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row.user.username }}</td>
+                            <td>{{ row.addScore }}</td>
+                            <td>{{ row.rank }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tbody id = "sub-table">
+                    {% for row in subScore %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row.user.username }}</td>
+                            <td>{{ row.subScore }}</td>
+                            <td>{{ row.rank }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>  
+                <tbody id = "mul-table">
+                    {% for row in mulScore %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row.user.username }}</td>
+                            <td>{{ row.mulScore }}</td>
+                            <td>{{ row.rank }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>  
+                <tbody id = "div-table">
+                    {% for row in divScore %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row.user.username }}</td>
+                            <td>{{ row.divScore }}</td>
+                            <td>{{ row.rank }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tbody id = "mix-table">
+                    {% for row in mixScore %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ row.user.username }}</td>
+                            <td>{{ row.mixScore }}</td>
+                            <td>{{ row.rank }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>        
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    const selection = document.getElementById('game-type-selection')
+    const table = document.querySelectorAll('tbody')
+
+    selection.addEventListener("change", filterTable)
+
+    function filterTable(){
+    table.forEach(function(tbody) {
+        tbody.style.display = "none";
+    });
+
+    switch (selection.value){
+        case "lattice":
+            document.getElementById('lat-table').style.display= 'table-row-group';
+            break;
+
+        case "addition":
+            document.getElementById('add-table').style.display= 'table-row-group';
+            break;
+
+        case "subtraction":
+            document.getElementById('sub-table').style.display= 'table-row-group';
+            break;
+
+        case "multiplication":
+            document.getElementById('mul-table').style.display= 'table-row-group';
+            break;
+
+        case "division":
+            document.getElementById('div-table').style.display= 'table-row-group';
+            break;
+
+        case "mixed":
+            document.getElementById('mix-table').style.display= 'table-row-group';
+            break;
+    }};
+
+    function totalScore(){
+        table.forEach(function(tbody) {
+            tbody.style.display = "none";
+        });
+        document.getElementById('game-type-selection').style.display = 'none';
+        document.getElementById('total-table').style.display= 'table-row-group';
+    };
+
+    function topScore(){
+        table.forEach(function(tbody) {
+            tbody.style.display = "none";
+        });
+        document.getElementById('game-type-selection').style.display = 'block';
+        filterTable();
+    };
+</script>
+{% endblock %}

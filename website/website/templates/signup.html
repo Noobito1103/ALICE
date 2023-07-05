@@ -1,0 +1,41 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/signup.css">
+	<title>Sign Up Page</title>
+</head>
+
+<body>
+	<div class="signup-container" >
+		<h1>SIGN UP</h1>
+        <form action="connect.php" method="post">
+            <div class="label-container">
+                <label>Name</label><br>
+                <label>Email</label><br>
+                <label>Password</label>
+                <label>Gender</label>
+                <label>Phone Number</label>
+            </div>
+                
+            <div class="input-container">
+                <input type="text" placeholder="Username" id="username" name="username" required>
+                <input type="text" placeholder="Email Address" id="email" name="email" required>
+                <input type="text" placeholder="Enter Password" id="password" name="password" required>
+                <input type="text" placeholder="Confirm Password" id="con_password" name="con_password" required>
+                <select id="gender" name="gender">
+                    <option value="" disabled selected hidden>Select a Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <input type="text" placeholder="Enter Phone Number eg: 012-1234567" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{7}"required>
+            </div>
+
+            <div class="button-container">
+                <button type="submit" name="submit_button" id="submit_button">Create Account</button>
+                <a href="{{ url_for('view.login')}}"><button type="button" name="back_button" id="back_button">Back to Login Page</button></a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

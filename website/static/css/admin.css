@@ -1,0 +1,175 @@
+body{
+    background-color: #454545;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+h1{
+    color: white;
+}
+
+button{
+    width: 100px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+#log-out-btn{
+    position: absolute;
+    right: 0;
+}
+
+.users-table{
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: auto;
+    height: auto;
+}
+
+.table{
+    height: 550px;
+    width: 800px;
+    position: relative;
+    overflow: auto;
+}
+
+table{
+    border: 1px solid black;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.user-id{
+    width: 100px;
+}
+
+.username{
+    min-width: 200px;
+}
+
+.email{
+    width: 200px;
+}
+
+.password{
+    width: 200px;
+}
+
+.subject{
+    min-width: 200px;
+}
+
+.description{
+    width: 400px;
+    word-break: break-all;
+}
+
+
+td{
+    position: relative;
+    text-align: center;
+    border: 1px solid black;
+    height: 40px;
+    background-color: whitesmoke;
+}
+
+th{
+    background-color: black;
+    height: 40px;
+    text-align: center;
+    color: white
+}
+
+td button{
+    position: absolute;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    top: 5px;
+}
+
+.save{
+    display: none;
+    left: 20px;
+}
+
+.edit{
+    display: block;
+    left: 20px;
+}
+
+.delete{
+    display: block;
+    right: 20px;
+}
+
+.col-edit{
+    width: 120px;
+}
+
+.add-user{
+    position: absolute;
+    right: 0;
+    margin-top: 20px;
+    height: 30px;
+    width: 75px;
+    font-weight: bold;
+}
+
+#feedback{
+    display: none;
+    overflow: auto;
+}
+
+.tips-container{
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    top: 5%px;
+    right: 5%;
+    font-size: 25px;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+}
+
+#tips{
+    position: relative; 
+    padding: 10px;
+    height: 200px;
+    width: 350px;
+    font-size: 18px;
+    color: black;
+}
+
+#save-btn{
+    position: relative;
+    font-size: 18px;
+    color: black;
+}
+
+.user-log-container{
+    height: 400px;
+    width: 400px;
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+}
+
+.user-activity-title{
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+}
+
+.logs{
+    padding: 10px;
+    height: 80%;
+    width: 100%;
+    background-color: whitesmoke;
+    font-size: 15px;
+    overflow: auto;
+}
+

@@ -1,0 +1,262 @@
+body{
+    margin: 0;
+    background-color: #454545;
+}
+
+.container{
+    position: absolute;
+    display: grid;
+    place-items: center;
+    right: 0;
+    width: 85%;
+    height: 100%;
+}
+
+.user-container{
+    display: flex;
+    justify-content: center;
+    border-radius: 15px;
+    position: relative;
+    height: 90%;
+    width: 90%;
+}
+
+.profile-container{
+    display: grid;
+    place-items: center;
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 30px;
+    border-radius: inherit;
+    position: relative;
+    height: 100%;
+    width: 30%;
+    box-sizing: border-box;
+}
+
+#edit-btn{
+    background-image: url("/static/images/edit.png");
+}
+
+#save-btn{
+    background-image: url("/static/images/save.png");
+    display: none;
+}
+
+#edit-btn,
+#save-btn{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: 0px solid black;
+    border-radius: 100%;
+    height: 35px;
+    width: 35px;
+    background-color: transparent;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#edit-btn:hover,
+#save-btn:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+    transition: transform ease-out 0.3s
+}
+
+.username{
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    position: relative;
+    top: 50px;
+    letter-spacing: 2px;
+}
+
+.avatar-upload {
+    position: absolute;
+    max-width: 205px;
+    top: 20px;
+}
+
+.avatar-upload .avatar-edit {
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    right: 0px;
+}
+
+.avatar-upload .avatar-preview {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-upload .avatar-preview > div {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-color: #454545;
+    overflow: hidden;
+}
+
+#profile-avatar{
+    height: 100%;
+    width: 100%;
+}
+
+#selected-image img{
+    height: 100%;
+    width: 100%
+}
+
+.bio{
+    font-size: 15px;
+    border-radius: 15px;
+    border: 0px solid black;
+    padding: 10px;
+    position: relative;
+    width: 200px;
+    height: 100px;
+    bottom: 170px;
+    resize: none;
+    transition: all 0.2s ease-in-out;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.status{
+    position: relative;
+    top: 0;
+    right: 0;
+}
+
+.game-stat{
+    font-size: 18px;
+}
+
+.game-statistics{
+    border: 0px solid black;
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    bottom: 50px;
+    letter-spacing: 1px;
+}
+
+.label-statistics{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80%;
+    float: left;
+}
+
+.label-statistics li{
+    font-size: 16px;
+    list-style-type: none;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.label-statistics i{
+    float:right;
+}
+
+#edit-container{
+    display: inline-block;
+    position: relative;
+    background-color: #f1f1f1;
+    overflow: hidden;
+    height: 100%;
+    width: 0%;
+    margin-left: 30px;
+    box-sizing: border-box;
+    border-radius: inherit;
+    transition: width 1s;
+    white-space: nowrap;
+}
+
+#edit-container .title{
+    position: absolute;
+    font-family: Lato, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: 30px;
+    margin: 30px;
+}
+
+#edit-form{
+    background-color: #f1f1f1;
+    position: absolute;
+    height: 90%;
+    width: 100%;
+    top: 10%;
+}
+
+#edit-form input, 
+#edit-form label, 
+#edit-form textarea{
+    margin-left: 30px;
+    display: grid;
+    position: relative;
+    font-family: Lato, Arial, Helvetica, sans-serif;
+    letter-spacing: 1px;
+    width: 300px;
+}
+
+#edit-form input{
+    margin-bottom: 10px;
+    font-size: 18px;
+    padding: 10px;
+    height: 50px;
+}
+
+#edit-form label{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+#edit-bio{
+    height: 150px;
+    padding: 10px;
+    resize: none;
+    font-size: 18px;
+}
+
+#selected-image{
+    display: none;
+    border: 0px solid black;
+    height: 150px;
+    width: 150px;
+    margin-left: 30px;
+}
+
+#save-edit{
+    color: white;
+    background-color: black;
+    font-family: Lato, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    height: 50px; 
+    width: 150px;
+    left: 320px;
+    bottom: 30px;
+}
+
+#save-edit:hover{
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.banner-edit{
+    margin-right: 30px;
+    position: absolute;
+    top: 0;
+    left: 400px;
+}

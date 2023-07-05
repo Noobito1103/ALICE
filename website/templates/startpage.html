@@ -1,0 +1,78 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<link rel="stylesheet" href="/static/css/startpage.css">
+</head>
+<body data-spy = "scroll" data-target = "top-navbar">
+
+    <header>
+        <div class = "top-navbar" id = "top-navbar">
+            <div class = "logo" onclick= "scrollToHome()"><h1>ALICE</h1></div>
+            <ul>
+                <li onclick= "scrollToAbout()">ABOUT</li>
+                <li onclick= "scrollToContact()">CONTACT</li>
+                <a href = "{{url_for('view.login')}}"><li>ENTER ALICE</li></a>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div id = "home-section">
+            <div class = "home-section-container">
+                <div class = "home-title">
+                    WELCOME TO ALICE
+                </div>
+                <div class = "home-section-content">
+                    <div class = "home-description">
+                        Description.....
+                    </div>
+                    <div class = "learn-more-btn">
+                        LEARN MORE
+                    </div>
+                    <div class = "get-started-btn">
+                        <a href = "{{url_for('view.signup')}}">GET STARTED</a>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div id = "about-section">
+            
+        </div> 
+        <div id = "contact-section">
+            
+        </div> 
+    </main>
+</body>
+
+<script>
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function() {
+    var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+        document.getElementById("top-navbar").style.top = "0";
+    } else {
+        document.getElementById("top-navbar").style.top = "-80px";
+    }
+    prevScrollpos = currentScrollPos;
+    }
+    function scrollToHome(){
+        const home_section = document.getElementById('home-section');
+        home_section.scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+    function scrollToAbout(){
+        const home_section = document.getElementById('about-section');
+        home_section.scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+    function scrollToContact(){
+        const home_section = document.getElementById('contact-section');
+        home_section.scrollIntoView({
+            behavior: "smooth"
+        });
+    }
+</script>
+</html>
+

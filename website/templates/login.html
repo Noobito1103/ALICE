@@ -1,0 +1,80 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<link rel="stylesheet" href="/static/css/login.css">
+	<title>Login</title>
+</head>
+
+<body>
+	<div id = "wrapper">
+		<h1>ALICE</h1>
+		<div id="login-container">
+			<h2>LOGIN</h2>
+			<div id = "login-form">
+				<form action = "" method = 'POST' id = "form">
+					<div id = "username-input">
+						<label id = "username-label">Enter Your Username</label>
+						<input type="text" id="username" name = "username" value="{{
+							request.form.username }}" required>
+						<span id = "required">Required</span>
+					</div>
+					<div id = "password-input">
+						<label id = "password-label">Enter Your Password</label>
+						<input type="password" id="password" name = "password" value="{{
+							request.form.password }}" required>
+						<span id = "required">Required</span>
+					</div>
+					{% if invalidData %}
+						<div id="incorrect-data-warning">
+							<div id="warning-icon">
+								<img src='/static/images/exclamation-mark.png'>
+							</div>
+							<div id="warning-msg">
+								Incorrect Username or password entered. Please try again
+							</div>
+						</div>
+					{% endif %}
+					<button id = "login-btn">LOGIN</button>
+					<hr>
+					<button id = "create-acc-btn"><a href = "{{url_for('view.signup')}}">CREATE ACCOUNT</a></button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script>
+document.querySelectorAll('#login-form input').forEach(input => {
+	const label = input.previousElementSibling;
+	const required = input.nextElementSibling;
+	input.addEventListener('focus', function(){
+		label.style.cssText = "transform: translate3d(0px, -32px, 0px) scale(0.75); background-color: white; z-index: 3; padding: 5px;";
+		required.style.visibility = "hidden";
+	})
+
+	input.addEventListener('focusout', function(){
+		if(!this.value){
+			label.style.cssText = "transform: '';backgroundColor: '';zIndex: '';padding: ''; color: red";
+			input.style.border = "2px solid red";
+			required.style.visibility = "visible";
+		}
+		else{
+			label.style.color = "#8B8B8B";
+			input.style.border = "2px solid black";
+			required.style.visibility = "hidden";
+		}
+	})
+});
+</script>
+{% if invalidData %}
+    <script>
+        const inputFields = document.querySelectorAll('input');
+        inputFields.forEach((field) => {
+            field.value = '';
+        });
+    </script>
+{% endif %}
+</html>
+

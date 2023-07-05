@@ -1,0 +1,53 @@
+body{
+    background-color: #454545;
+}
+
+h1{
+    padding: 10 30px;
+    color: white;
+    font-size: 20px;
+}
+
+h2{
+    font-size: 50px;
+}
+
+.wrapper{
+    position: absolute;
+    border: 0px solid white;
+    width: 80%;
+    height: 80%;
+    left: 20%;
+    top: 10%;
+}
+
+.game_settings_container{
+    border: 1px solid white;
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+
+.game_container{
+    border: 1px solid white;
+    width: 60%;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+
+.game_mode_container{
+    border-radius: 15px;
+    position: relative;
+    border: 0px solid white;
+    height: 50px;
+    width: 80%;
+    margin: 10%;
+    background-color: #777;
+    text-align: center;
+}
+
+.game_mode_container:hover {
+    background-color: #555;
+  }
+

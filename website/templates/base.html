@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel = "stylesheet" href = "/static/css/menu.css">
+    {% block style %}{% endblock %}
+</head>
+<body>
+<div id = "container">
+     <div id = "navbar">
+        <div id = "logo-container">
+            <a href = "{{url_for('view.home')}}">ALICE</a>
+        </div>
+        <div id = "navbar-upper-container">
+            <a href ="{{url_for('view.play')}}"><li id = 'play'>Play</li></a>
+            <a href ="{{url_for('view.tutorial')}}"><li>Tutorial</li></a>
+            <a href ="{{url_for('view.leaderboards')}}"><li>Leaderboards</li></a>
+            <a href ="{{url_for('view.profile')}}"><li>Profile</li></a>
+        </div>
+
+        <div id = "navbar-lower-container">
+            <li id = "help" onclick = "openFeedbackForm()">Help</li>
+            <a href ="{{url_for('view.logout')}}"><li>Logout</li></a>
+        </div>
+    </div>
+    <div class = "feedback_form" id = "feedback_form">
+        <span class = "close" onclick = "closeFeedbackForm()"></span>
+        <form action = "" method = "GET" id = "form">
+            <span id = form-title>Provide a Feedback</span>
+            <input id = "subject" type = "text" placeholder = "Subject" name = "subject">
+            <textarea id = "description" placeholder =  "Description" name = "description"></textarea>
+            <button id = "send-btn" class = "send_btn" onclick="submitForm(this)">Submit</button>
+        </form>
+    </div>
+</div>
+{% block content %}{% endblock %}
+</body>
+<script>
+    function submitForm(){
+        const subject = document.getElementById('subject').value;
+        const description =  document.getElementById('description').value;
+        if (subject === "" || description === ""){
+            alert("Fields cannot be empty")
+        }
+        else{
+            const url = `/add_feedback?subject=${encodeURIComponent(subject)}&description=${encodeURIComponent(description)}`;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.send();
+            alert("Feedback sent");
+        }
+	}
+
+
+    function openFeedbackForm(){
+        document.getElementById('feedback_form').style.visibility = "visible";
+    }
+
+    function closeFeedbackForm(){
+        document.getElementById('feedback_form').style.visibility = "hidden";
+    }
+
+    function showHelpContainer(){
+        document.getElementById('help-container').style.visibility = "visible";
+    }
+
+    function closeHelpContainer(){
+        document.getElementById('help-container').style.visibility = "hidden";
+    }
+</script>
+</html>

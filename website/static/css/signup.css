@@ -1,0 +1,182 @@
+body {
+    background: azure;
+    margin: 0;
+    display: grid;
+    place-items: center;
+}
+
+h1{
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: 40px;
+}
+
+h2{
+    position: absolute;
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: 24px;
+    padding: 10px;
+    top: 0;
+}
+
+#login-form hr{
+    border: 1px solid black;
+}
+
+#login-form p{
+    font-size: 16px;
+    font-family: Roboto, Helvetica, sans-serif;
+    margin: 25px;
+}
+
+#wrapper{
+    position: absolute;
+    border: 0px solid black;
+    height: auto;
+    width: auto;
+    text-align: center;
+    top: 0;
+}
+
+#login-container{
+    background-color: white;
+    position: relative;
+    border: 1px black solid;
+    width: 400px;
+    height: 600px;
+    border-radius: 5px;
+    padding: 1rem;
+    display: grid;
+    place-items: center;
+}
+
+#login-form{
+    display: grid;
+    border: 0px solid black;
+    position: relative;
+    width: 340px;
+    height: auto;
+    top: 30px;
+    place-items: center;
+}
+
+input{
+    position: relative;
+    height: 55px;
+    width: 340px;
+    padding: 1rem;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: transparent;
+    z-index: 2;
+    border: 2px solid rgb(192, 192, 192);
+}
+
+input:hover{
+    border: 2px solid black;
+}
+
+.username-input, .password-input, .email-input{
+    position: relative;
+    height: auto;
+    width: 340px;
+    border: 0px solid black;
+    background-color:transparent ;
+    display: grid;
+    place-items: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+#username-label, #password-label, #email-label{
+    text-align: left;
+    font-family: Roboto, Helvetica, sans-serif;
+    position: absolute;
+    background-color: transparent;
+    height: auto;
+    width: auto;
+    top: 18px;
+    left: 15px;
+    z-index: 1;
+    transition: all 0.2s;
+    transform-origin: left;
+    color: rgb(139, 139, 139);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#signup-btn, #back-to-login-btn{
+    position: relative;
+    font-family: Roboto, Helvetica, sans-serif;
+    font-weight: bold;
+    overflow: hidden;
+    border: 0px;
+    border-radius: 5px;
+    height: 40px;
+    width: 340px;
+    letter-spacing: 1.6px;
+}
+
+#signup-btn:hover, #back-to-login-btn:hover{
+    cursor: pointer;
+}
+
+#signup-btn{
+    background-color: black;
+    color: white;
+    margin-top: 10px;
+}
+
+#back-to-login-btn{
+    background-color: rgb(225, 225, 225);
+    color: black;
+    margin-top: 20px;
+}
+
+#back-to-login-btn a{
+    text-decoration: none;
+    color: black;
+    display: block;
+    width: 100%;
+    line-height: 300%;
+}
+
+#signup-btn a{
+    text-decoration: none;
+    color: white;
+}
+
+:root{
+    --error-color: #dc3545;
+    --success-color: #28a745;
+}
+
+.username-input.error input,
+.email-input.error input,
+.password-input.error input
+{
+    border-color: var(--error-color);
+}
+
+.username-input.success input,
+.email-input.success input,
+.password-input.success input
+{
+    border-color: var(--success-color);
+}
+
+#login-form span {   
+    font-family: Roboto, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: left;
+    border: 0px solid black;
+    position: relative;
+    height: 30px;
+    width: 100%;
+    margin: 0;
+    color: var(--error-color);
+}
+
