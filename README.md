@@ -6,4 +6,4 @@ It features a simple gamification of mathematics to help students or its users t
 * REQUIRES Python ver3.10 and above and a Text Editor to run<br />
 * Copy the files from this repository and open them in a text editor<br />
 * RUN the main.py file<br />
-* Head to http://127.0.0.1:5000 on a browser
+* Head to http://127.0.0.1:5000 after successfully booting up the server
