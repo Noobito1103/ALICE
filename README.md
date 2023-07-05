@@ -1,6 +1,6 @@
 # ALICE
-This is just a small project for my final year project in diploma<br />
-It features a simple gamification of mathematics to help students or its users to improve on their mathematical skills
+* This is just a small project for my final year project in diploma<br />
+* It features a simple gamification of mathematics to help students or its users to improve on their mathematical skills
 
 # HOW TO ACCESS WEBSITE
 REQUIRES Python ver3.10 and above and a Text Editor to run<br />
